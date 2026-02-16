@@ -1,0 +1,111 @@
+
+
+// Adding Dialogue state
+
+// Dialogue Files
+/////////////////////////////////////////
+ACTION_IF Action-Dialogues = 1 THEN BEGIN
+/////////////////////////////////////////
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\dialogues\LE#TashiaA.d~ USING ~%tra_location%\%s\LE#TashiaA.tra~
+
+ADD_JOURNAL EXISTING TITLE (#74337) @0 @1 @2 USING ~%tra_location%\%s\LE#TashiaA.tra~
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\dialogues\LE#Tash25A.d~ USING ~%tra_location%\%s\LE#Tash25A.tra~
+
+EXTEND_TOP ~Tashia.bcs~ ~Tashia\update\scripts\LE#Tashia.baf~ EVALUATE_BUFFER
+
+/////////////////////////////////////////
+END ELSE ACTION_IF Baldurized-Dialogues = 1 THEN BEGIN 
+/////////////////////////////////////////
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\dialogues\LE#TashiaN.d~ USING ~%tra_location%\%s\LE#TashiaN.tra~
+
+ADD_JOURNAL EXISTING TITLE (#74337) @0 @1 @2 USING ~%tra_location%\%s\LE#TashiaN.tra~
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\dialogues\LE#Tashia25N.d~ USING ~%tra_location%\%s\LE#Tashia25N.tra~
+
+EXTEND_TOP ~Tashia.bcs~ ~Tashia\update\scripts\LE#TashiaN.baf~ EVALUATE_BUFFER
+
+/////////////////////////////////////////
+END
+/////////////////////////////////////////
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\dialogues\LE#Inter.d~
+USING ~%tra_location%\%s\LE#Inter.tra~
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\dialogues\LE#Tashia25j.d~
+USING ~%tra_location%\%s\LE#Tashia25j.tra~
+
+COPY ~Tashia\update\creatures\le#Belm.cre~ ~override\le#belm.cre~
+SAY NAME1 @313
+SAY NAME2 @313
+
+// Scripts
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\TashiaD.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#vtash.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#vai.baf~
+EXTEND_TOP ~Tash25.bcs~ ~Tashia\update\scripts\LE#Tash25.baf~
+ EVALUATE_BUFFER
+EXTEND_TOP ~Tashi25d.bcs~ ~Tashia\update\scripts\LE#Tash25D.baf~
+ EVALUATE_BUFFER
+
+COPY_EXISTING ~AR0713.are~ ~override~
+ WRITE_ASCII 0x94 ~AR0713~
+BUT_ONLY_IF_IT_CHANGES
+
+EXTEND_BOTTOM ~ar0713.bcs~ ~Tashia\update\scripts\LE#AR0713.baf~
+ EVALUATE_BUFFER
+EXTEND_BOTTOM ~ar0809.bcs~ ~Tashia\update\scripts\LE#AR0809.baf~
+ EVALUATE_BUFFER
+EXTEND_BOTTOM ~cleanse.bcs~ ~Tashia\update\scripts\LE#Cleanse.baf~
+ EVALUATE_BUFFER
+
+// Cutscenes
+
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#BodhA.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#gicut.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#gics2.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#gics3.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#cstb1.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#cstb2.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#cstb3.baf~
+COMPILE EVALUATE_BUFFER ~Tashia\update\scripts\LE#tsics.baf~
+
+// Kit Correction (needed for the Barbarian dialogue)
+ACTION_IF (!GAME_IS ~bg2ee eet~) BEGIN
+  INCLUDE ~tashia/lib/cd_kit_ids_fixer.tpa~
+END
+
+// Items
+COPY ~Tashia\update\Items\m#ibcclk.bam~ ~override\m#ibcclk.bam~
+
+COPY ~Tashia\update\Items\le#tbody.itm~ ~override\le#tbody.itm~
+SAY NAME2 @310
+SAY DESC @311
+
+COPY ~Tashia\update\Items\le#twclk.itm~ ~override\le#twclk.itm~
+SAY NAME2 @304
+SAY DESC @305
+
+COPY ~Tashia\update\Items\le#wwclk.itm~ ~override\le#wwclk.itm~
+SAY NAME2 @306
+SAY DESC @307
+
+// Creatures
+COPY ~Tashia\update\creatures\le#aimil.cre~ ~override\le#aimil.cre~
+SAY NAME1 @308
+SAY NAME2 @308
+
+COPY ~Tashia\update\creatures\le#shop.cre~ ~override\le#shop.cre~
+SAY NAME1 @309
+SAY NAME2 @309
+
+COPY ~Tashia\update\creatures\le#vtash.cre~ ~override\le#vtash.cre~
+SAY NAME1 @1
+SAY NAME2 @1
+
+COPY ~Tashia\update\creatures\le#cowl.cre~ ~override\le#cowl.cre~
+SAY NAME1 @314
+SAY NAME2 @314
