@@ -8,7 +8,6 @@ README ~tashia/tra/%LANGUAGE%/readme-tashia.html~
 
 ALWAYS
     // EET compatibility
-    ACTION_IF NOT VARIABLE_IS_SET bg2_chapter BEGIN
       ACTION_IF GAME_IS ~eet~ BEGIN
         OUTER_SET bg2_chapter = 12
       END ELSE BEGIN
@@ -24,7 +23,11 @@ ALWAYS
 	//Copies tra files into the autotra-folder (to leave the originals untouched)
 	DEFINE_ACTION_FUNCTION autotra_workaround BEGIN
 	COPY ~tashia/Languages/english~				~weidu_external/tashia/Languages/autotra/%LANGUAGE%~
+	COPY ~tashia/Languages/english/original~				~weidu_external/tashia/Languages/autotra/%LANGUAGE%~
+	COPY ~tashia/Languages/english/new~				~weidu_external/tashia/Languages/autotra/%LANGUAGE%~
 	COPY ~tashia/Languages/%LANGUAGE%~					~weidu_external/tashia/Languages/autotra/%LANGUAGE%~
+	COPY ~tashia/Languages/%LANGUAGE%/original~				~weidu_external/tashia/Languages/autotra/%LANGUAGE%~
+	COPY ~tashia/Languages/%LANGUAGE%/new~				~weidu_external/tashia/Languages/autotra/%LANGUAGE%~ IF_EXISTS
 	END
 
 	LAF autotra_workaround END
@@ -54,6 +57,7 @@ ALWAYS
     END ELSE BEGIN
       OUTER_TEXT_SPRINT tra_location ~tashia/languages~
     END
+
 END
 
 // Compatibility with SoA only
@@ -77,39 +81,39 @@ AUTO_TRA ~%tra_location%/%s~
 
 LANGUAGE ~English~
          ~english~
-         ~tashia/tra/english/wsetup.tra~
+         ~tashia/languages/english/wsetup.tra~
 
 LANGUAGE ~Russian (translation by ArtBersercer, aerie.ru, and yota13)~ // UTF8 should be ANSI
          ~russian~
-         ~tashia/tra/english/wsetup.tra~
-         ~tashia/tra/russian/wsetup.tra~
+         ~tashia/languages/english/wsetup.tra~
+         ~tashia/languages/russian/wsetup.tra~
 
 LANGUAGE ~Deutsch (Uebersetzung von Maus)~
          ~german~
-         ~tashia/tra/english/wsetup.tra~
-         ~tashia/german/wsetup.tra~
+         ~tashia/languages/english/wsetup.tra~
+         ~tashia/languages/german/wsetup.tra~
 
-LANGUAGE ~espanol (traducido por el Clan DLAN)~
+LANGUAGE ~Espanol (traducido por el Clan DLAN)~
          ~spanish~
-         ~tashia/tra/english/wsetup.tra~
-         ~tashia/spanish/wsetup.tra~
+         ~tashia/languages/english/wsetup.tra~
+         ~tashia/languages/spanish/wsetup.tra~
 
-LANGUAGE ~francais (traduction de Yoho)~
+LANGUAGE ~Francais (traduction de Yoho)~
          ~french~
-         ~tashia/tra/english/wsetup.tra~
-         ~tashia/french/wsetup.tra~
+         ~tashia/languages/english/wsetup.tra~
+         ~tashia/languages/french/wsetup.tra~
 
-LANGUAGE ~italiano (traduzione di al17 e Hellspawn)~
+LANGUAGE ~Italiano (traduzione di al17 e Hellspawn)~
          ~italian~
-         ~tashia/tra/english/wsetup.tra~
-         ~tashia/italian/wsetup.tra~
+         ~tashia/languages/english/wsetup.tra~
+         ~tashia/languages/italian/wsetup.tra~
 
 
 // Installation
-BEGIN @0
+BEGIN @303 // @0
 DESIGNATED 0
-LABEL ~le#-Tashia-Full~
-SUBCOMPONENT @303 (GAME_IS ~tob bg2ee eet~) // hide subcomponent on SoA-only
+LABEL ~le#-Tashia~
+// SUBCOMPONENT @303 (GAME_IS ~tob bg2ee eet~) // hide subcomponent on SoA-only
 REQUIRE_PREDICATE (GAME_IS ~soa tob bg2ee eet~) @319 // prevent component on non-BG2 games
 
 LAF HANDLE_AUDIO END
@@ -299,14 +303,22 @@ COMPILE EVALUATE_BUFFER ~tashia/Dialogues/taevil.d~
 COMPILE EVALUATE_BUFFER ~tashia/Dialogues/tashia.d~
   USING ~%tra_location%/%s/tashia.tra~
 
+// Missing lines for translation no up to date
+	WITH_TRA ~tashia/Languages/english/tashiaj.TRA~
+			 ~%tra_location%/%s/tashiaj.TRA~ BEGIN
 COMPILE EVALUATE_BUFFER ~tashia/Dialogues/tashiaj.d~
-  USING ~%tra_location%/%s/tashiaj.tra~
+	END
+//  USING ~%tra_location%/%s/tashiaj.tra~
 
 COMPILE EVALUATE_BUFFER ~tashia/Dialogues/tashiap.d~
   USING ~%tra_location%/%s/tashiap.tra~
 
+// Missing lines for translation no up to date
+	WITH_TRA ~tashia/Languages/english/btashia.TRA~
+			 ~%tra_location%/%s/btashia.TRA~ BEGIN
 COMPILE EVALUATE_BUFFER ~tashia/Dialogues/btashia.d~
-  USING ~%tra_location%/%s/btashia.tra~
+	END
+//  USING ~%tra_location%/%s/btashia.tra~
 
 COMPILE EVALUATE_BUFFER ~tashia/Dialogues/tajarmis.d~
   USING ~%tra_location%/%s/tajarmis.tra~
@@ -402,9 +414,10 @@ DESIGNATED 2
 LABEL ~le#-Tashia-Action-Dialogues~
 SUBCOMPONENT @300
 REQUIRE_PREDICATE (GAME_IS ~tob bg2ee eet~) @319 // prevent component on non-BG2 games
-REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia-Full~)) @312 // require full version
+REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia~)) @312 // require full version
 
 			OUTER_SET Action-Dialogues = 1
+			OUTER_SET Baldurized-Dialogues = 0
 
 		INCLUDE ~tashia/lib/le#_Dialogues.tph~
 
@@ -413,9 +426,10 @@ DESIGNATED 3
  LABEL ~le#-Tashia-Baldurized-Dialogues~
 SUBCOMPONENT @300
 REQUIRE_PREDICATE (GAME_IS ~tob bg2ee eet~) @319 // prevent component on non-BG2 games
-REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia-Full~)) @312 // require full version
+REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia~)) @312 // require full version
 
 			OUTER_SET Baldurized-Dialogues = 1
+			OUTER_SET Action-Dialogues = 0
 
 		INCLUDE ~tashia/lib/le#_Dialogues.tph~
 
@@ -425,8 +439,7 @@ DESIGNATED 4
 LABEL ~le#-Tashia-Alt-Portrait-1~
 SUBCOMPONENT @318
 REQUIRE_PREDICATE (GAME_IS ~soa tob bg2ee eet~) @319 // prevent component on non-BG2 games
-REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia-Full~)) ||
-                  (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia-SoA-Only~)) @320 // require main component
+REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia~)) @320 // require main component
 
 ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 	COPY ~tashia/update/portraits/alternative1/ee~  ~override~
@@ -439,8 +452,7 @@ DESIGNATED 5
 LABEL ~le#-Tashia-Alt-Portrait-2~
 SUBCOMPONENT @318
 REQUIRE_PREDICATE (GAME_IS ~soa tob bg2ee eet~) @319 // prevent component on non-BG2 games
-REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia-Full~)) ||
-                  (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia-SoA-Only~)) @320 // require main component
+REQUIRE_PREDICATE (MOD_IS_INSTALLED ~tashia.tp2~ (ID_OF_LABEL ~tashia.tp2~ ~le#-Tashia~)) @320 // require main component
 
 ACTION_IF (GAME_IS ~bg2ee eet~) BEGIN
 	COPY ~tashia/update/portraits/alternative2/ee~  ~override~
