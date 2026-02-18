@@ -1,0 +1,23 @@
+IF
+	Global("TashiaSummoned","GLOBAL",0)
+	InParty("tashia")
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaSummoned","GLOBAL",2)
+		ActionOverride("tashia",ChangeAIScript("tash25",OVERRIDE))
+		Continue()
+END
+
+IF
+	Global("TashiaSummoned","GLOBAL",1)
+	Global("TashiaSpawnPlane","GLOBAL",0)
+THEN
+	RESPONSE #100
+		CreateVisualEffect("SPPORTAL",[1999.1218])
+		Wait(2)
+		CreateCreature("tashia",[1999.1218],0)
+		ActionOverride("tashia",ChangeAIScript("tash25",OVERRIDE))
+		AddXPObject("tashia",2250000)
+		SetGlobal("TashiaSpawnPlane","GLOBAL",1)
+END
+

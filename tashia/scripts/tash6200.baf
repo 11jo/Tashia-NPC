@@ -1,0 +1,40 @@
+IF
+	Global("StartEndBios","AR6200",1)
+	InParty("Tashia")
+	Global("TashiaRomanceActive","GLOBAL",2)
+	Global("PlayerChoseEssence","GLOBAL",0)
+	Global("TashiaBio","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaBio","GLOBAL",1)
+		TextScreen("TASHEND1")
+		SmallWait(1)
+		Continue()
+END
+
+IF
+	Global("StartEndBios","AR6200",1)
+	InParty("Tashia")
+	!Global("TashiaRomanceActive","GLOBAL",2)
+	Global("TashiaBio","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaBio","GLOBAL",1)
+		TextScreen("TASHEND2")
+		SmallWait(1)
+		Continue()
+END
+
+IF
+	Global("StartEndBios","AR6200",1)
+	InParty("Tashia")
+	Global("TashiaRomanceActive","GLOBAL",2)
+	Global("PlayerChoseEssence","GLOBAL",1)
+	Global("TashiaBio","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaBio","GLOBAL",1)
+		TextScreen("TASHEND3")
+		SmallWait(1)
+		Continue()
+END

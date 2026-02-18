@@ -1,0 +1,29 @@
+The Following language aren't up to date.
+
+- french
+- german
+- italian
+- spanish
+
+The English folder contains
+
+- "New" folder with completly new lines from Tashia remix.
+- "original" folder with original Tashia lines not modified in Tashia remix.
+
+The Following files are original Tashia files, but updated or partially modified in Tashia remix. 
+
+- btashi25.tra
+- btashia.tra
+- taflirt.tra
+- tashi25j.tra
+- tashiaj.tra
+- tmother.tra
+- wsetup.tra
+
+
+---
+American folder is the original english version for legacy purpose.
+---
+
+
+

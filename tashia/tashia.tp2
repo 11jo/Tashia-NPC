@@ -362,13 +362,13 @@ COPY ~tashia/Media/tashend3.2da~ ~override/tashend3.2da~
   REPLACE ~187678~ @105
 
 // Pretend scripts
-EXTEND_TOP ~player1d.bcs~ ~tashia/Scripts/tashia1d.bcs~ EVALUATE_BUFFER // BAF
-EXTEND_TOP ~ar2010.bcs~ ~tashia/Scripts/tash2010.bcs~ EVALUATE_BUFFER // BAF
+EXTEND_TOP ~player1d.bcs~ ~tashia/Scripts/tashia1d.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~ar2010.bcs~ ~tashia/Scripts/tash2010.baf~ EVALUATE_BUFFER
 
 ACTION_IF (GAME_IS ~tob bg2ee eet~) BEGIN
-	EXTEND_TOP ~ar4500.bcs~ ~tashia/Scripts/tash4500.bcs~ EVALUATE_BUFFER // BAF
-	EXTEND_TOP ~ar6200.bcs~ ~tashia/Scripts/tash6200.bcs~ EVALUATE_BUFFER // BAF
-	EXTEND_BOTTOM ~cut218g.bcs~ ~tashia/Scripts/tcut218g.bcs~ EVALUATE_BUFFER // BAF
+	EXTEND_TOP ~ar4500.bcs~ ~tashia/Scripts/tash4500.baf~ EVALUATE_BUFFER
+	EXTEND_TOP ~ar6200.bcs~ ~tashia/Scripts/tash6200.baf~ EVALUATE_BUFFER
+	EXTEND_BOTTOM ~cut218g.bcs~ ~tashia/Scripts/tcut218g.baf~ EVALUATE_BUFFER
 END
 
 // Append Tashia NPC dialogs to the games 2da files

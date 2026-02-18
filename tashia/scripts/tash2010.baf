@@ -1,0 +1,59 @@
+IF
+	Global("TashiaCreated","AR2010",0)
+	!InParty("tashia")
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaCreated","AR2010",1)
+		CreateCreature("tashia",[715.540],15)
+		Continue()
+END
+
+IF
+	Global("TashiaCreated","AR2010",1)
+	Global("TashiaExpAdded","AR2010",0)
+	XPGT(Player1,1500000)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaExpAdded","AR2010",1)
+		AddXPObject("tashia",750000)
+END
+
+IF
+	Global("TashiaCreated","AR2010",1)
+	Global("TashiaExpAdded","AR2010",0)
+	XPGT(Player1,1000000)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaExpAdded","AR2010",1)
+		AddXPObject("tashia",500000)
+END
+
+IF
+	Global("TashiaCreated","AR2010",1)
+	Global("TashiaExpAdded","AR2010",0)
+	XPGT(Player1,500000)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaExpAdded","AR2010",1)
+		AddXPObject("tashia",250000)
+END
+
+IF
+	Global("TashiaCreated","AR2010",1)
+	Global("TashiaExpAdded","AR2010",0)
+	XPGT(Player1,300000)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaExpAdded","AR2010",1)
+		AddXPObject("tashia",50000)
+END
+
+IF
+	Global("TashiaCreated","AR2010",1)
+	Global("TashiaExpAdded","AR2010",0)
+	XPLT(Player1,300001)
+THEN
+	RESPONSE #100
+		SetGlobal("TashiaExpAdded","AR2010",1)
+END
+
